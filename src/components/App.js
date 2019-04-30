@@ -8,7 +8,7 @@ import AddTodo from '../containers/AddTodo';
 import VisibleTodoList from '../containers/VisibleTodoList';
 
 //const App = ({ message, counter, dispatch }) => ( //with dispatch, without mapDispatchToProps
-const App = ({ message, counter, increment, decrement, dispatch }) => (
+const App = ({ message, counter, increment, decrement }) => (
   <div className="container">
 
     <div className="columns column is-12">
@@ -20,44 +20,34 @@ const App = ({ message, counter, increment, decrement, dispatch }) => (
     </div>
 
     <div className="buttons">
-    <button onClick={() => increment(1)} className="button is-primary">
-      +1
-    </button>
-    <button onClick={() => increment(2)} className="button is-link">
-      +2
-    </button>
-    <button onClick={() => increment(3)} className="button is-info">
-      +3
-    </button>
-    {/*
-    <button onClick={() => dispatch(increment(3))} className="button is-info">
-      +3
-    </button>
-    */}
-  </div>
+      <button onClick={() => increment(1)} className="button is-primary">
+        +1
+      </button>
+      <button onClick={() => increment(2)} className="button is-link">
+        +2
+      </button>
+      <button onClick={() => increment(3)} className="button is-info">
+        +3
+      </button>
+    </div>
 
-  <div className="buttons">
-    <button onClick={() => decrement(1)} className="button is-primary">
-      -1
-    </button>
-    <button onClick={() => decrement(2)} className="button is-link">
-      -2
-    </button>
-    <button onClick={() => decrement(3)} className="button is-info">
-      -3
-    </button>
-    {/*
-    <button onClick={() => dispatch(decrement(3))} className="button is-info">
-      -3
-    </button>
-    */}
-  </div>
+    <div className="buttons">
+      <button onClick={() => decrement(1)} className="button is-primary">
+        -1
+      </button>
+      <button onClick={() => decrement(2)} className="button is-link">
+        -2
+      </button>
+      <button onClick={() => decrement(3)} className="button is-info">
+        -3
+      </button>
+    </div>
 
-  <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer />
-  </div>
+    <div>
+      <AddTodo />
+      <VisibleTodoList />
+      <Footer />
+    </div>
   
   </div>
 );
