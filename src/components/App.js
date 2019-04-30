@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {increment, decrement} from './actions';
+import {increment, decrement} from '../actions/counters';
 
-const App = ({ message, counter, dispatch }) => (
+import Footer from './Footer';
+import AddTodo from '../containers/AddTodo';
+import VisibleTodoList from '../containers/VisibleTodoList';
+
+//const App = ({ message, counter, dispatch }) => ( //with dispatch, without mapDispatchToProps
+const App = ({ message, counter, increment, decrement, dispatch }) => (
   <div className="container">
 
     <div className="columns column is-12">
@@ -15,40 +20,60 @@ const App = ({ message, counter, dispatch }) => (
     </div>
 
     <div className="buttons">
-    <button onClick={() => dispatch(increment(1))} className="button is-primary">
+    <button onClick={() => increment(1)} className="button is-primary">
       +1
     </button>
-    <button onClick={() => dispatch(increment(2))} className="button is-link">
+    <button onClick={() => increment(2)} className="button is-link">
       +2
     </button>
+    <button onClick={() => increment(3)} className="button is-info">
+      +3
+    </button>
+    {/*
     <button onClick={() => dispatch(increment(3))} className="button is-info">
       +3
     </button>
+    */}
   </div>
 
   <div className="buttons">
-    <button onClick={() => dispatch(decrement(1))} className="button is-primary">
+    <button onClick={() => decrement(1)} className="button is-primary">
       -1
     </button>
-    <button onClick={() => dispatch(decrement(2))} className="button is-link">
+    <button onClick={() => decrement(2)} className="button is-link">
       -2
     </button>
+    <button onClick={() => decrement(3)} className="button is-info">
+      -3
+    </button>
+    {/*
     <button onClick={() => dispatch(decrement(3))} className="button is-info">
       -3
     </button>
+    */}
+  </div>
+
+  <div>
+    <AddTodo />
+    <VisibleTodoList />
+    <Footer />
   </div>
   
   </div>
 );
 
-const mapStateToProps = function(state) {
-  return {
+const mapStateToProps = (state) => ({
     message: 'This is message from mapStateToProps',
     counter: state.counters.score || 0
-  }
-}
+});
 
-const AppWithConnect = connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  increment: (value) => dispatch(increment(value)),
+  decrement: (value) => dispatch(decrement(value))
+});
+
+//const AppWithConnect = connect(mapStateToProps)(App);
+const AppWithConnect = connect(mapStateToProps, mapDispatchToProps)(App);
 export default AppWithConnect;
 
 /*
