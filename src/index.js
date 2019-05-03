@@ -3,7 +3,6 @@ import React from 'react';
 import {render} from 'react-dom';
 import './index.css';
 import App from './components/App';
-import Header from './header';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -24,7 +23,6 @@ const store = createStore(rootReducer, {}, applyMiddleware(logger));
 
 const MyApp = () => (
     <Provider store={store}>
-      <Header />
       <App />
     </Provider>
 )
