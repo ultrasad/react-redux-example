@@ -1,5 +1,5 @@
 //import React, {Fragment, useState, useEffect} from 'react';
-import React, {Fragment, useEffect, useCallback} from 'react';
+import React, {Fragment, useState, useEffect, useCallback} from 'react';
 import { connect } from 'react-redux';
 import { increment, decrement } from '../actions/counters';
 
@@ -11,10 +11,12 @@ const Counter = ({ message, counter, cat, isFetching, count, dispatch }) => {
     //const [count, setCount] = useState(0);
     //const [cat, setCat] = useState({});
 
+    const [isError, setIsError] = useState(false);
+
     //const randomCat = () => axios.get('https://aws.random.cat/meow');
     const fetchCat = () => axios.get('https://aws.random.cat/meow');
 
-    let fetchCatLoading = 'Loading....';
+    //let fetchCatLoading = 'Loading....';
 
     //inline reducer
     //const [{ cat, isFetching, count }, dispatch] = useReducer(reducer, initialState);
@@ -23,6 +25,7 @@ const Counter = ({ message, counter, cat, isFetching, count, dispatch }) => {
     const eventHandler = useCallback(() => {
        
         dispatch(fetchPending());
+        setIsError(false);
 
         async function fetchMeow() {
             /*
@@ -35,12 +38,16 @@ const Counter = ({ message, counter, cat, isFetching, count, dispatch }) => {
            //const response = await fetchCat();
            //console.log('response meow fetch file 1: ' + response.data.file);
            //dispatch(fetchSuccess(response.data));
-        
-           await fetchCat().then(response => {
-                //return response.data;
-                console.log('response meow fetch file 2: ' + response.data.file);
-                dispatch(fetchSuccess(response.data));
-            });
+            
+            try {
+                await fetchCat().then(response => {
+                        //return response.data;
+                        console.log('response meow fetch file 2: ' + response.data.file);
+                        dispatch(fetchSuccess(response.data));
+                });
+            } catch(error){
+                setIsError(true);
+            }
         }
 
         fetchMeow();
@@ -69,9 +76,11 @@ const Counter = ({ message, counter, cat, isFetching, count, dispatch }) => {
     // ใส่ log เพื่อดูว่ามัน render ยังไง
     console.log('render >>>');
 
+    /*
     if (!isFetching) {
         fetchCatLoading = <img src={cat.file} alt="Meow" width="256" />
     } 
+    */
 
     return (
         <Fragment>
@@ -108,7 +117,11 @@ const Counter = ({ message, counter, cat, isFetching, count, dispatch }) => {
             </button>
             </p>
 
-            <p>{fetchCatLoading}</p>
+            <p>{/*fetchCatLoading*/}</p>
+            {isError && <div>Something went wrong ...</div>}
+            <p>
+            {isFetching ? ('Loading ...'):(<img src={cat.file} alt="Meow" width="256" />)}
+            </p>
 
             {/*
                 <p>
