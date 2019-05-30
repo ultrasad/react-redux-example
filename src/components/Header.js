@@ -29,7 +29,7 @@ const mapStateToProps = function(state) {
     return {
       //username: state.user.username || 'Hanajung'
       username: state.user.username || 'Hanajung',
-      paramx: 'OMG'
+      paramx: 'OMG !!'
     }
 };
 
